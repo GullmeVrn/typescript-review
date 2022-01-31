@@ -127,3 +127,56 @@ class Subscriber {
         // this = HTMLInputElement.property
     }
 }
+
+class Point {
+    x = 0
+    y = 0
+}
+
+function getX(p: Point) {
+    return p.x
+}
+
+abstract class Geometry {
+    x = 0
+    y = 0
+    abstract surface(): number
+}
+
+class Triangle extends Geometry {
+    x = 2
+    y = 2
+
+    surface() {
+        return 3
+    }
+}
+
+type InstantiableShape = {
+    new (x: number, y: number): {
+        surface: () => number
+    }
+}
+
+class Ellipse {
+
+    constructor(x: number, y: number) {
+
+    }
+
+    static #origin: {x: number, y: number}
+
+    static {
+        Ellipse.#origin = {x: 0, y: 0}
+    }
+
+    surface() {
+        return 3
+    }
+}
+
+function shapeGenerator(shapeType: InstantiableShape, x: number, y: number) {
+    return new shapeType(x, y).surface()
+}
+
+shapeGenerator(Ellipse, 10, 20)
